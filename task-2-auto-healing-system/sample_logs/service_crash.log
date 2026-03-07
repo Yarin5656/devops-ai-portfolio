@@ -1,0 +1,10 @@
+2024-03-07 08:00:01 INFO  [nginx] Worker process started (pid=12301)
+2024-03-07 08:00:05 INFO  [nginx] Accepting connections on port 80
+2024-03-07 08:12:33 WARN  [nginx] High memory usage detected: 87%
+2024-03-07 08:14:01 ERROR [nginx] Segmentation fault — core dumped
+2024-03-07 08:14:01 FATAL [nginx] Worker process 12301 crashed unexpectedly
+2024-03-07 08:14:02 ERROR [nginx] Master process detected child exit with signal 11
+2024-03-07 08:14:02 WARN  [nginx] No healthy workers remaining — service unavailable
+2024-03-07 08:14:05 ERROR [nginx] Connection refused on port 80 — upstream is down
+2024-03-07 08:14:10 ERROR [monitor] Health check failed for nginx after 3 retries
+2024-03-07 08:14:15 FATAL [monitor] nginx service crashed — alerting on-call team

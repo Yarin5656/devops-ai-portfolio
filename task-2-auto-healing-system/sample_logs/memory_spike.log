@@ -1,0 +1,10 @@
+2024-03-07 11:00:00 INFO  [node] Application server started on port 3000
+2024-03-07 11:00:02 INFO  [node] Connected to redis cache
+2024-03-07 11:23:15 WARN  [node] Heap usage at 78% — approaching limit
+2024-03-07 11:24:00 WARN  [node] Heap usage at 91% — GC pressure increasing
+2024-03-07 11:24:45 ERROR [node] Out of memory: heap allocation failed — 512MB limit exceeded
+2024-03-07 11:24:46 FATAL [kernel] OOM killer invoked — killing node process (pid=8821)
+2024-03-07 11:24:46 ERROR [kernel] Memory cgroup out of memory: Kill process 8821 (node) score 987
+2024-03-07 11:24:47 FATAL [node] Process killed by OOM killer — application terminated
+2024-03-07 11:24:48 ERROR [monitor] node service unavailable — health check timeout
+2024-03-07 11:24:50 WARN  [monitor] Downstream services receiving connection refused from node:3000

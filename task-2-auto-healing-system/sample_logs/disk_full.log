@@ -1,0 +1,10 @@
+2024-03-07 09:00:00 INFO  [postgres] Database engine started — data dir /var/lib/postgres
+2024-03-07 09:00:01 INFO  [postgres] Listening on 127.0.0.1:5432
+2024-03-07 09:45:12 WARN  [postgres] Disk usage on /var partition: 88%
+2024-03-07 10:01:44 WARN  [postgres] Disk usage on /var partition: 95%
+2024-03-07 10:15:30 ERROR [postgres] Write failed: No space left on device (/var/lib/postgres/pg_wal)
+2024-03-07 10:15:31 FATAL [postgres] Disk full — checkpoint cannot be completed
+2024-03-07 10:15:32 ERROR [postgres] WAL writer process terminated: disk full
+2024-03-07 10:15:33 ERROR [postgres] All database write operations are blocked
+2024-03-07 10:15:35 WARN  [logrotate] Skipping rotation: disk full, cannot write compressed archive
+2024-03-07 10:15:40 FATAL [monitor] Storage threshold exceeded — system in read-only mode

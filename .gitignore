@@ -15,8 +15,8 @@ venv/
 env/
 ENV/
 
-# Generated reports (keep the placeholder, ignore generated files)
-task-1-log-analyzer/reports/report*.md
+# Generated reports (runtime output — not committed)
+**/reports/*.md
 
 # Environment / secrets
 .env
