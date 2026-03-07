@@ -1,0 +1,25 @@
+2024-03-07 10:30:00 INFO  [backup-agent] Starting scheduled backup job (cron: 0 10 * * *)
+2024-03-07 10:30:00 INFO  [backup-agent] Backup target: /var/data/postgres — destination: /mnt/backups/
+2024-03-07 10:30:01 INFO  [backup-agent] Running as user: backup-svc (uid=1005, gid=1005)
+2024-03-07 10:30:01 INFO  [backup-agent] Checking source directory accessibility
+2024-03-07 10:30:01 ERROR [backup-agent] permission denied: cannot open '/var/data/postgres/base' for reading
+2024-03-07 10:30:01 ERROR [backup-agent] os.scandir('/var/data/postgres/base'): [Errno 13] Permission denied: '/var/data/postgres/base'
+2024-03-07 10:30:01 INFO  [backup-agent] Directory ownership: root:postgres (mode: 0700)
+2024-03-07 10:30:01 WARN  [backup-agent] Current user 'backup-svc' is not a member of group 'postgres'
+2024-03-07 10:30:01 ERROR [backup-agent] Traceback (most recent call last):
+2024-03-07 10:30:01 ERROR [backup-agent]   File "/opt/backup-agent/backup.py", line 57, in run_backup
+2024-03-07 10:30:01 ERROR [backup-agent]     entries = list(os.scandir(source_path))
+2024-03-07 10:30:01 ERROR [backup-agent] PermissionError: [Errno 13] Permission denied: '/var/data/postgres/base'
+2024-03-07 10:30:02 INFO  [backup-agent] Attempting fallback: pg_basebackup with replication slot
+2024-03-07 10:30:02 INFO  [backup-agent] Connecting to PostgreSQL at localhost:5432 as backup-svc
+2024-03-07 10:30:02 ERROR [backup-agent] pg_basebackup: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed:
+2024-03-07 10:30:02 ERROR [backup-agent] FATAL:  permission denied for role "backup-svc" — missing REPLICATION privilege
+2024-03-07 10:30:02 ERROR [backup-agent] Fallback method also failed — no viable backup strategy available
+2024-03-07 10:30:03 ERROR [backup-agent] Writing failure event to audit log: /var/log/backup-audit.log
+2024-03-07 10:30:03 ERROR [backup-agent] permission denied: cannot write to '/var/log/backup-audit.log'
+2024-03-07 10:30:03 FATAL [backup-agent] Backup job FAILED — multiple permission denied errors encountered
+2024-03-07 10:30:03 ERROR [backup-agent] Last successful backup: 2024-03-06 10:30:12 (24h ago — RPO at risk)
+2024-03-07 10:30:04 INFO  [backup-agent] Sending failure notification to ops-team@company.com
+2024-03-07 10:30:04 INFO  [backup-agent] Exit code: 1
+2024-03-07 10:30:04 INFO  [notifier] PagerDuty alert created: INC-20240307-4901 (severity: high)
+2024-03-07 10:30:04 INFO  [notifier] Runbook: Ensure backup-svc user has read access to /var/data/postgres and REPLICATION privilege in PostgreSQL

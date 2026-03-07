@@ -1,0 +1,34 @@
+2024-03-07 08:00:01 INFO  [ci-runner] Pipeline stage: deploy — STARTED
+2024-03-07 08:00:02 INFO  [ci-runner] Pulling image: registry.internal/myapp:v2.4.1
+2024-03-07 08:00:05 INFO  [ci-runner] Image pulled successfully
+2024-03-07 08:00:06 INFO  [deployer] Connecting to Kubernetes cluster: prod-us-east-1
+2024-03-07 08:00:07 INFO  [deployer] Applying manifests from ./k8s/production/
+2024-03-07 08:00:08 INFO  [deployer] Deployment 'myapp' updated — rolling update in progress
+2024-03-07 08:00:15 INFO  [k8s-probe] Waiting for pod readiness (timeout: 120s)
+2024-03-07 08:00:30 INFO  [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — status: Pending
+2024-03-07 08:00:45 WARN  [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — status: CrashLoopBackOff
+2024-03-07 08:00:46 ERROR [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — container exit code: 1
+2024-03-07 08:00:47 INFO  [k8s-probe] Fetching container logs for post-mortem analysis
+2024-03-07 08:00:48 INFO  [app-container] Starting MyApp v2.4.1 ...
+2024-03-07 08:00:48 INFO  [app-container] Loading configuration from /etc/myapp/config.yaml
+2024-03-07 08:00:49 INFO  [app-container] Initialising database connection pool
+2024-03-07 08:00:49 INFO  [app-container] Importing application modules
+2024-03-07 08:00:50 ERROR [app-container] Traceback (most recent call last):
+2024-03-07 08:00:50 ERROR [app-container]   File "/app/main.py", line 14, in <module>
+2024-03-07 08:00:50 ERROR [app-container]     from services import analytics
+2024-03-07 08:00:50 ERROR [app-container]   File "/app/services/analytics.py", line 3, in <module>
+2024-03-07 08:00:50 ERROR [app-container]     import pandas as pd
+2024-03-07 08:00:50 FATAL [app-container] ModuleNotFoundError: No module named 'pandas'
+2024-03-07 08:00:50 ERROR [app-container] Application startup failed — aborting.
+2024-03-07 08:00:51 INFO  [k8s-probe] Container exited. Kubernetes will attempt restart (backoff: 10s).
+2024-03-07 08:01:01 WARN  [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — restart count: 1
+2024-03-07 08:01:12 WARN  [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — restart count: 2
+2024-03-07 08:01:35 WARN  [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — restart count: 3
+2024-03-07 08:02:00 ERROR [k8s-probe] Pod myapp-7d9f8b6c4-xk2pq — restart count: 4 (CrashLoopBackOff — exponential backoff active)
+2024-03-07 08:02:01 ERROR [deployer] Rollout health check FAILED — new pods are not becoming Ready
+2024-03-07 08:02:02 INFO  [deployer] Initiating automatic rollback to previous stable release: v2.3.9
+2024-03-07 08:02:10 INFO  [deployer] Rollback complete — running version: v2.3.9
+2024-03-07 08:02:11 ERROR [ci-runner] Pipeline stage: deploy — FAILED
+2024-03-07 08:02:11 ERROR [ci-runner] Exit code: 1 — see pod logs above for root cause
+2024-03-07 08:02:12 INFO  [notifier] Sending alert to #incidents Slack channel
+2024-03-07 08:02:12 INFO  [notifier] PagerDuty incident created: INC-20240307-4821

@@ -1,0 +1,6 @@
+# AI DevOps Log Analyzer — Python dependencies
+#
+# Core tool has NO required dependencies — runs on Python 3.9+ stdlib only.
+#
+# Optional: install the Anthropic SDK to enable --ai mode.
+# anthropic>=0.40.0

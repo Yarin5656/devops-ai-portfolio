@@ -1,0 +1,29 @@
+2024-03-07 09:15:00 INFO  [api-gateway] Incoming request: POST /api/v1/orders — client: 10.0.4.22
+2024-03-07 09:15:00 INFO  [api-gateway] Routing request to order-service (10.0.8.15:8080)
+2024-03-07 09:15:00 INFO  [order-service] Processing order request for user_id=9182
+2024-03-07 09:15:00 INFO  [order-service] Querying inventory-service for stock availability
+2024-03-07 09:15:00 INFO  [order-service] Connecting to inventory-service at 10.0.12.34:9090
+2024-03-07 09:15:05 WARN  [order-service] Slow response from inventory-service (5.0s elapsed, threshold: 3.0s)
+2024-03-07 09:15:10 ERROR [order-service] connection refused — 10.0.12.34:9090 (ECONNREFUSED)
+2024-03-07 09:15:10 ERROR [order-service] Failed to reach inventory-service after 1 attempt(s)
+2024-03-07 09:15:10 INFO  [order-service] Retrying in 2s (attempt 2/3)
+2024-03-07 09:15:12 ERROR [order-service] connection refused — 10.0.12.34:9090 (ECONNREFUSED)
+2024-03-07 09:15:12 INFO  [order-service] Retrying in 4s (attempt 3/3)
+2024-03-07 09:15:16 ERROR [order-service] connection refused — 10.0.12.34:9090 (ECONNREFUSED)
+2024-03-07 09:15:16 FATAL [order-service] All retry attempts exhausted — inventory-service is unreachable
+2024-03-07 09:15:16 ERROR [order-service] Exception: ServiceUnavailableError — upstream dependency failed
+2024-03-07 09:15:16 ERROR [order-service] Traceback (most recent call last):
+2024-03-07 09:15:16 ERROR [order-service]   File "order_handler.py", line 88, in process_order
+2024-03-07 09:15:16 ERROR [order-service]     inventory = await inventory_client.check_stock(items)
+2024-03-07 09:15:16 ERROR [order-service]   File "clients/inventory.py", line 42, in check_stock
+2024-03-07 09:15:16 ERROR [order-service]     raise ServiceUnavailableError(f"connection refused: {self.host}:{self.port}")
+2024-03-07 09:15:16 INFO  [api-gateway] Returning 503 Service Unavailable to client 10.0.4.22
+2024-03-07 09:15:17 WARN  [health-checker] inventory-service health check failed — marking as UNHEALTHY
+2024-03-07 09:15:17 INFO  [health-checker] Last successful health check: 2024-03-07 09:08:45 (6m 32s ago)
+2024-03-07 09:15:18 INFO  [health-checker] Checking inventory-service pod status in Kubernetes
+2024-03-07 09:15:19 WARN  [health-checker] inventory-service pod: OOMKilled — restarts: 7
+2024-03-07 09:15:20 ERROR [health-checker] inventory-service is in CrashLoopBackOff
+2024-03-07 09:15:21 INFO  [notifier] Alerting on-call engineer — PagerDuty INC-20240307-4836
+2024-03-07 09:15:21 INFO  [notifier] Runbook: https://internal.wiki/runbooks/inventory-service-down
+2024-03-07 09:15:55 ERROR [load-balancer] Backend 10.0.12.34:9090 connection timeout after 30s — removing from pool
+2024-03-07 09:16:10 ERROR [load-balancer] No healthy backends available for inventory-service — all requests will fail
