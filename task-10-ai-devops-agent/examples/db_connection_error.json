@@ -1,0 +1,32 @@
+{
+  "title": "Database Connection Pool Exhaustion",
+  "description": "Application service unable to acquire database connections. Connection pool exhausted causing cascading failures across multiple services.",
+  "service": "user-service",
+  "environment": "production",
+  "timestamp": "2026-03-10T14:22:05Z",
+  "logs": [
+    "2026-03-10T14:18:00Z [WARN]  DB connection pool utilization at 80% (80/100)",
+    "2026-03-10T14:19:30Z [WARN]  DB connection pool utilization at 95% (95/100)",
+    "2026-03-10T14:20:00Z [ERROR] Failed to connect to database: Connection refused - postgresql://db.internal:5432/userdb",
+    "2026-03-10T14:20:15Z [ERROR] Could not acquire database connection from pool within 5000ms",
+    "2026-03-10T14:20:30Z [ERROR] Connection pool exhausted: all 100 connections in use",
+    "2026-03-10T14:21:00Z [ERROR] FATAL: remaining connection slots are reserved for non-replication superuser connections",
+    "2026-03-10T14:21:15Z [ERROR] max_connections limit reached on PostgreSQL server",
+    "2026-03-10T14:21:45Z [ERROR] Database query timeout after 30000ms: SELECT * FROM users WHERE id=$1",
+    "2026-03-10T14:22:00Z [CRITICAL] Health check failed: database unreachable",
+    "2026-03-10T14:22:05Z [CRITICAL] Circuit breaker OPEN for database calls - failing fast"
+  ],
+  "metrics": {
+    "db_connection_pool_used": 100,
+    "db_connection_pool_max": 100,
+    "db_connection_pool_percent": 100.0,
+    "db_query_timeout_count": 847,
+    "db_connection_errors": 1203,
+    "cpu_percent": 22.1,
+    "memory_percent": 61.5,
+    "active_db_transactions": 0,
+    "circuit_breaker_state": 1,
+    "request_failure_rate_percent": 100.0
+  },
+  "tags": ["database", "postgresql", "connection-pool", "circuit-breaker", "production"]
+}

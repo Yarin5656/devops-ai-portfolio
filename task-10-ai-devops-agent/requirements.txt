@@ -1,0 +1,9 @@
+# DevOps AI Agent — Python dependencies
+# Core dependencies (standard library only for the rule-based engine)
+
+# Optional: AI enhancement via Claude API
+# Install to enable AI-enhanced analysis mode (requires ANTHROPIC_API_KEY env var)
+anthropic>=0.40.0
+
+# Optional: Rich terminal output
+rich>=13.0.0

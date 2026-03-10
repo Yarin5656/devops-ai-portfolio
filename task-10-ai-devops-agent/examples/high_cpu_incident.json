@@ -1,0 +1,31 @@
+{
+  "title": "High CPU Utilization Alert",
+  "description": "API service experiencing sustained CPU usage above 95% causing request timeouts and degraded response times.",
+  "service": "api-gateway",
+  "environment": "production",
+  "timestamp": "2026-03-10T11:45:00Z",
+  "logs": [
+    "2026-03-10T11:40:00Z [WARN]  CPU usage at 87% - approaching threshold",
+    "2026-03-10T11:41:30Z [WARN]  CPU usage at 92% - high load detected",
+    "2026-03-10T11:42:00Z [ERROR] Request timeout after 30000ms for route /api/process",
+    "2026-03-10T11:42:15Z [ERROR] CPU usage at 97% - critical threshold exceeded",
+    "2026-03-10T11:43:00Z [ERROR] Thread pool exhausted: no available workers",
+    "2026-03-10T11:43:30Z [ERROR] Request queue depth: 2847 - dropping new requests",
+    "2026-03-10T11:44:00Z [CRITICAL] System load average: 24.5 (16 core system)",
+    "2026-03-10T11:44:15Z [ERROR] OOM killer invoked - process worker-3 terminated",
+    "2026-03-10T11:45:00Z [CRITICAL] CPU steal time 45% - possible noisy neighbor on hypervisor"
+  ],
+  "metrics": {
+    "cpu_percent": 97.3,
+    "cpu_steal_percent": 45.0,
+    "load_average_1m": 24.5,
+    "load_average_5m": 19.8,
+    "memory_percent": 88.4,
+    "request_queue_depth": 2847,
+    "active_threads": 512,
+    "thread_pool_capacity": 512,
+    "p99_response_time_ms": 28500,
+    "error_rate_percent": 62.3
+  },
+  "tags": ["cpu", "high-load", "timeout", "performance", "production"]
+}

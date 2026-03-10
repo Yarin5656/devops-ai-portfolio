@@ -1,0 +1,24 @@
+{
+  "title": "Nginx Service Unavailable",
+  "description": "Nginx web server is returning 502 Bad Gateway errors to clients. Upstream connections are failing.",
+  "service": "nginx",
+  "environment": "production",
+  "timestamp": "2026-03-10T08:32:14Z",
+  "logs": [
+    "2026-03-10T08:31:55Z [error] 1234#1234: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 10.0.1.55, server: api.example.com, request: \"GET /api/health HTTP/1.1\", upstream: \"http://127.0.0.1:8080/api/health\", host: \"api.example.com\"",
+    "2026-03-10T08:31:56Z [error] 1234#1234: *2 no live upstreams while connecting to upstream, client: 10.0.1.66, server: api.example.com, request: \"POST /api/data HTTP/1.1\", upstream: \"http://upstream_backend/api/data\", host: \"api.example.com\"",
+    "2026-03-10T08:31:57Z [warn]  1234#1234: *3 upstream server temporarily disabled while reading response header from upstream",
+    "2026-03-10T08:32:00Z [error] 1234#1234: *4 recv() failed (104: Connection reset by peer) while reading response header from upstream",
+    "2026-03-10T08:32:10Z [crit]  1234#1234: *5 SSL_do_handshake() failed (SSL: error:00000000:lib(0):func(0):reason(0)) while SSL handshaking to upstream",
+    "2026-03-10T08:32:14Z [error] 1234#1234: *6 502 Bad Gateway sent to client"
+  ],
+  "metrics": {
+    "request_rate": 450,
+    "error_rate_percent": 98.5,
+    "upstream_response_time_ms": 0,
+    "active_connections": 12,
+    "cpu_percent": 15.2,
+    "memory_percent": 42.0
+  },
+  "tags": ["nginx", "502", "upstream", "production", "network"]
+}
