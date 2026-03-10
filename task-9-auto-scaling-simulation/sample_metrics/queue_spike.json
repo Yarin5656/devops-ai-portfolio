@@ -1,0 +1,12 @@
+{
+  "service": "message-processor",
+  "environment": "production",
+  "timestamp": "2026-01-15T09:15:00Z",
+  "cpu_utilization": 54,
+  "memory_utilization": 62,
+  "request_rate": 310,
+  "queue_depth": 2850,
+  "current_replicas": 3,
+  "avg_response_time_ms": 4300,
+  "error_rate": 0.079
+}

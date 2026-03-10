@@ -1,0 +1,12 @@
+{
+  "service": "api-gateway",
+  "environment": "production",
+  "timestamp": "2026-01-15T14:30:00Z",
+  "cpu_utilization": 88,
+  "memory_utilization": 72,
+  "request_rate": 1250,
+  "queue_depth": 45,
+  "current_replicas": 4,
+  "avg_response_time_ms": 850,
+  "error_rate": 0.032
+}

@@ -1,0 +1,13 @@
+# task-9-auto-scaling-simulation
+# All dependencies are from the Python standard library.
+# No third-party packages are required.
+#
+# Python >= 3.9 is required for:
+#   - dataclasses (3.7+)
+#   - pathlib     (3.4+)
+#   - typing      (3.5+)
+#
+# Optional: install for development quality tooling only
+# pytest>=7.0.0
+# black>=23.0.0
+# mypy>=1.0.0
