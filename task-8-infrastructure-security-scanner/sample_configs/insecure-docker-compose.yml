@@ -1,0 +1,31 @@
+# INTENTIONALLY INSECURE - for scanner demonstration only
+version: "3.8"
+
+services:
+  web:
+    image: nginx:latest          # BAD: :latest tag
+    ports:
+      - "0.0.0.0:80:80"         # BAD: binds to all interfaces
+    privileged: true             # BAD: privileged mode
+    user: root                   # BAD: running as root
+    environment:
+      - API_KEY=sk-prod-abcdef1234567890          # BAD: hardcoded API key
+      - DB_PASSWORD=supersecret123               # BAD: hardcoded password
+      - NODE_ENV=production
+    # BAD: no resource limits defined
+
+  database:
+    image: postgres              # BAD: no tag (implicitly :latest)
+    ports:
+      - "5432:5432"              # BAD: database exposed on all interfaces
+    environment:
+      POSTGRES_PASSWORD: admin   # BAD: weak / hardcoded password
+      POSTGRES_DB: appdb
+    # BAD: no memory or CPU limits
+
+  redis:
+    image: redis:latest          # BAD: :latest tag
+    ports:
+      - "6379:6379"              # BAD: cache exposed on all interfaces
+    # BAD: no resource limits
+    # BAD: no auth configured

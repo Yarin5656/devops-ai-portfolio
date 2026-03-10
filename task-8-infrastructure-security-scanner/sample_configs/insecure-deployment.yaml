@@ -1,0 +1,41 @@
+# INTENTIONALLY INSECURE - for scanner demonstration only
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insecure-app
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: insecure-app
+  template:
+    metadata:
+      labels:
+        app: insecure-app
+    spec:
+      hostNetwork: true          # BAD: bypasses network isolation
+      hostPID: true              # BAD: exposes host process namespace
+      containers:
+        - name: app
+          image: myapp:latest    # BAD: :latest tag
+          securityContext:
+            privileged: true     # BAD: privileged container
+            runAsUser: 0         # BAD: running as root (UID 0)
+          env:
+            - name: DB_PASSWORD
+              value: "password123"     # BAD: hardcoded secret
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"  # BAD: hardcoded AWS secret
+            - name: API_TOKEN
+              value: "tok-abc123xyz"   # BAD: hardcoded token
+          # BAD: no resources limits
+          # BAD: no livenessProbe
+          # BAD: no readinessProbe
+
+        - name: sidecar
+          image: busybox          # BAD: no tag (implicitly :latest)
+          securityContext:
+            runAsNonRoot: false   # BAD: explicitly allows root
+          # BAD: no resource limits
+          # BAD: no liveness/readiness probes
