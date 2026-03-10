@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-6-web
+  namespace: task-6
+  labels:
+    app: task-6-web
+    version: "1.0.0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-6-web
+  template:
+    metadata:
+      labels:
+        app: task-6-web
+        version: "1.0.0"
+    spec:
+      containers:
+        - name: web
+          image: YOUR_DOCKERHUB_USERNAME/task-6-web-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SERVICE_NAME
+              value: "task-6-web-service"
+            - name: APP_VERSION
+              value: "1.0.0"
+            - name: PORT
+              value: "8080"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+      terminationGracePeriodSeconds: 30

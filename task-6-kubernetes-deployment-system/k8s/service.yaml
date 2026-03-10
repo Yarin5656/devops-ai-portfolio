@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-6-web
+  namespace: task-6
+  labels:
+    app: task-6-web
+spec:
+  type: ClusterIP
+  selector:
+    app: task-6-web
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

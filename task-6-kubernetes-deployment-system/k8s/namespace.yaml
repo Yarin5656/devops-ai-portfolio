@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: task-6
+  labels:
+    app: task-6-web-service
+    managed-by: kubectl
