@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-4-cicd-pipeline
+  labels:
+    app: task-4-cicd-pipeline
+spec:
+  type: ClusterIP
+  selector:
+    app: task-4-cicd-pipeline
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

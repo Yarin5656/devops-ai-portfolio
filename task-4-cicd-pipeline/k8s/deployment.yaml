@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-4-cicd-pipeline
+  labels:
+    app: task-4-cicd-pipeline
+    version: "1.0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-4-cicd-pipeline
+  template:
+    metadata:
+      labels:
+        app: task-4-cicd-pipeline
+    spec:
+      # Run as non-root to match the Dockerfile security posture
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: app
+          # Replace IMAGE_PLACEHOLDER with the actual image during deployment,
+          # e.g.:  ghcr.io/<owner>/task-4-cicd-pipeline:<sha>
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
